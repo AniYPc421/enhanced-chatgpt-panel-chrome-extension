@@ -6,7 +6,8 @@
   "permissions": [
     "sidePanel",
     "declarativeNetRequest",
-    "declarativeNetRequestWithHostAccess"
+    "declarativeNetRequestWithHostAccess",
+    "clipboardWrite"
   ],
   "background": {
     "service_worker": "js/background.js"
@@ -22,5 +23,13 @@
   "action": {
     "default_title": "ChatGPT Panel Chrome Extension"
   },
-  "host_permissions": ["https://chatgpt.com/"]
+  "host_permissions": ["https://chatgpt.com/"],
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["js/content.js"],
+      "all_frames": true,
+      "run_at": "document_end"
+    }
+  ]
 }
