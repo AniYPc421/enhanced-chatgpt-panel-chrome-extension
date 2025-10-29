@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ChatGPT Panel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Chrome extension that brings ChatGPT to your browser panel",
   "permissions": [
     "sidePanel",
