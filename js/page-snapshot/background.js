@@ -225,6 +225,18 @@
       return;
     }
 
+    // Open the side panel immediately while we're still in the context-menu click gesture.
+    // Waiting for the snapshot response may lose the gesture token in some Chrome versions.
+    try {
+      chrome.sidePanel.open({ tabId }, () => {
+        if (chrome.runtime.lastError) {
+          openSidePanelForWindow(tab?.windowId);
+        }
+      });
+    } catch (_error) {
+      openSidePanelForWindow(tab?.windowId);
+    }
+
     try {
       const snapshotResponse = await requestSnapshotFromTab(tabId);
       if (!snapshotResponse || !snapshotResponse.ok) {
