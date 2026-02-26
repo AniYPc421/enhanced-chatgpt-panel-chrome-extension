@@ -1,4 +1,11 @@
 const addressPrefix = 'https://chatgpt.com';
+const panelFrameName = 'chatgpt-panel-frame';
+const i18n = window.__chatgptPanelI18n;
+
+const getI18nText = (key, params, fallbackText = '') => {
+  const value = i18n && typeof i18n.t === 'function' ? i18n.t(key, params) : undefined;
+  return typeof value === 'string' && value ? value : fallbackText;
+};
 
 const fetchAuthSession = async () => {
   try {
@@ -7,7 +14,7 @@ const fetchAuthSession = async () => {
     if (response.status === 403) {
       return {
         state: "cloudflare",
-        message: 'Please login and pass the Cloudflare check at <a href="' + addressPrefix + '" target="_blank" rel="noreferrer">chatgpt.com</a>',
+        message: getI18nText('popup.cloudflareLoginMessage', { url: addressPrefix }),
       };
     }
 
@@ -15,19 +22,27 @@ const fetchAuthSession = async () => {
     if (!response.ok || !data.accessToken) {
       return {
         state: "unauthorized",
-        message: 'Please login at <a href="' + addressPrefix + '" target="_blank" rel="noreferrer">chatgpt.com</a> first',
+        message: getI18nText('popup.loginFirstMessage', { url: addressPrefix }),
       };
     }
 
     return { state: "authorized" };
   } catch (error) {
     console.error("Error fetching session:", error);
-    return { state: "error", message: "Error fetching session. Please try again later." };
+    return {
+      state: "error",
+      message: getI18nText('popup.fetchSessionError')
+    };
   }
 };
 
 const renderChatFrame = (container) => {
-  container.innerHTML = '<iframe scrolling="no" src="' + addressPrefix + '/chat" frameborder="0" style="width: 100%; height: 100vh;"></iframe>';
+  container.innerHTML =
+    '<iframe name="' +
+    panelFrameName +
+    '" scrolling="no" src="' +
+    addressPrefix +
+    '/chat?chatgpt_panel=1" frameborder="0" style="width: 100%; height: 100vh;"></iframe>';
 };
 
 const renderMessage = (container, message) => {
@@ -35,6 +50,7 @@ const renderMessage = (container, message) => {
 };
 
 const initializeBar = async () => {
+  document.title = getI18nText('popup.documentTitle');
   const container = document.getElementById("iframe");
 
   const authStatus = await fetchAuthSession();

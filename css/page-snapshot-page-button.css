@@ -1,0 +1,48 @@
+#chatgpt-panel-page-snapshot-button.chatgpt-panel-page-snapshot-button {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483647;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #111827;
+  color: #f9fafb;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.95;
+}
+
+#chatgpt-panel-page-snapshot-button.chatgpt-panel-page-snapshot-button:hover:not(.is-busy) {
+  opacity: 1;
+}
+
+#chatgpt-panel-page-snapshot-button.chatgpt-panel-page-snapshot-button.is-busy {
+  opacity: 0.8;
+  cursor: wait;
+}
+
+#chatgpt-panel-page-snapshot-toast.chatgpt-panel-page-snapshot-toast {
+  position: fixed;
+  right: 16px;
+  bottom: 72px;
+  z-index: 2147483647;
+  display: none;
+  max-width: 260px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(17, 24, 39, 0.92);
+  color: #f9fafb;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+#chatgpt-panel-page-snapshot-toast.chatgpt-panel-page-snapshot-toast.is-visible {
+  display: block;
+}

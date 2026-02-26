@@ -1,6 +1,27 @@
 (function() {
   'use strict';
 
+  const i18n = window.__chatgptPanelI18n;
+
+  const normalizeTerms = (terms, fallbackTerms) => {
+    const values = Array.isArray(terms) ? terms : fallbackTerms;
+    return values
+      .map((term) => String(term || '').trim().toLowerCase())
+      .filter(Boolean);
+  };
+
+  const getI18nTerms = (key, fallbackTerms) => {
+    const value = i18n && typeof i18n.t === 'function' ? i18n.t(key) : undefined;
+    return normalizeTerms(value, fallbackTerms);
+  };
+
+  const copyTerms = getI18nTerms('content.copyDetection.copyTerms', ['copy']);
+  const copiedTerms = getI18nTerms('content.copyDetection.copiedTerms', ['copied']);
+
+  const containsTerm = (text, terms) => {
+    return terms.some((term) => text.includes(term));
+  };
+
   const setTextAreaValue = (textArea, text) => {
     textArea.value = text;
   };
@@ -58,14 +79,14 @@
 
   const isCopyButtonLabel = (attributes) => {
     const lowerLabel = attributes.label.toLowerCase();
-    return lowerLabel.includes('copy') && lowerLabel !== 'copied';
+    return containsTerm(lowerLabel, copyTerms) && !containsTerm(lowerLabel, copiedTerms);
   };
 
   const isCopyButtonByAttributes = (attributes) => {
-    return attributes.label.toLowerCase().includes('copy') ||
-           attributes.text.toLowerCase().includes('copy') ||
-           attributes.id.toLowerCase().includes('copy') ||
-           attributes.className.toLowerCase().includes('copy');
+    return containsTerm(attributes.label.toLowerCase(), copyTerms) ||
+           containsTerm(attributes.text.toLowerCase(), copyTerms) ||
+           containsTerm(attributes.id.toLowerCase(), copyTerms) ||
+           containsTerm(attributes.className.toLowerCase(), copyTerms);
   };
 
   const isCopyButtonByTestId = (button) => {
@@ -192,17 +213,8 @@
     }
   };
 
-  const observeDynamicContent = () => {
-    const observer = new MutationObserver(() => {});
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-  };
-
   const initializeCopyEnhancement = () => {
     initializeOnDOMReady();
-    observeDynamicContent();
   };
 
   initializeCopyEnhancement();

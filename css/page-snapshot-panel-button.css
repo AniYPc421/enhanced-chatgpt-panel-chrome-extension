@@ -1,0 +1,39 @@
+#chatgpt-panel-inline-snapshot-wrapper.chatgpt-panel-inline-snapshot-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 4px 0;
+  padding: 6px 4px 8px 4px;
+  color: inherit;
+}
+
+#chatgpt-panel-inline-snapshot-button.chatgpt-panel-inline-snapshot-button {
+  padding: 6px 10px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-size: 12px;
+  line-height: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#chatgpt-panel-inline-snapshot-button.chatgpt-panel-inline-snapshot-button.is-busy {
+  opacity: 0.8;
+  cursor: wait;
+}
+
+#chatgpt-panel-inline-snapshot-status.chatgpt-panel-inline-snapshot-status {
+  display: inline-block;
+  min-height: 18px;
+  color: inherit;
+  font-size: 12px;
+  line-height: 18px;
+  opacity: 0.75;
+}
+
+#chatgpt-panel-inline-snapshot-wrapper.chatgpt-panel-inline-snapshot-wrapper:not(.has-status)
+  #chatgpt-panel-inline-snapshot-status.chatgpt-panel-inline-snapshot-status {
+  display: none;
+}

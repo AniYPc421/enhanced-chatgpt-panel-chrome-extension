@@ -15,6 +15,10 @@ This Chrome extension integrates ChatGPT directly into your browser's side panel
 - **Session Authentication:** The extension checks the user's authentication status with ChatGPT and prompts login if necessary.
 - **Customizable Chat Frame:** Once authenticated, a chat frame is rendered inside the panel for easy access to ChatGPT.
 - **Header Modifications:** Automatically removes content security policy and frame options from requests to ensure ChatGPT functions properly in the panel.
+- **Page Snapshot Upload (`page-snapshot`):** Injects an "Upload Page Snapshot" button on regular pages and sends HTML snapshot files to the ChatGPT panel upload flow.
+- **Panel Snapshot Upload (`page-snapshot`):** Also injects an "Upload Page Snapshot" button above the side-panel ChatGPT prompt to capture the current active page and upload it directly.
+- **Quote Text to Prompt (`quote-text`):** Adds a context-menu action "Quote Text to ChatGPT Panel" to inject selected text into the panel prompt.
+- **Scoped ChatGPT Injection:** Prompt/file automation runs only in the extension side-panel ChatGPT iframe, not in standalone `chatgpt.com` tabs.
 
 ## Installation
 
@@ -28,6 +32,8 @@ This Chrome extension integrates ChatGPT directly into your browser's side panel
 
 - **sidePanel:** Allows the extension to add content to the browser's side panel.
 - **declarativeNetRequest & declarativeNetRequestWithHostAccess:** Used to modify the headers of the network requests to ensure the embedded ChatGPT interface works smoothly.
+- **contextMenus:** Adds the quote-text right-click action.
+- **Host access (`http/https` + `chatgpt.com`):** Required for webpage snapshot injection and panel-side ChatGPT integration.
 
 ## How It Works
 
@@ -35,6 +41,8 @@ This Chrome extension integrates ChatGPT directly into your browser's side panel
 2. The `popup.js` file checks the user's session status and handles rendering the appropriate content inside the side panel.
 3. If the user is authenticated, an iframe displaying ChatGPT is shown.
 4. The extension modifies specific request headers to prevent `content-security-policy` and `x-frame-options` from blocking the integration.
+5. A page-level content script can capture the current HTML and dispatch it to the side panel ChatGPT bridge as an upload file.
+6. A context-menu action can dispatch selected text and prepend it to the prompt in the side panel.
 
 ## Troubleshooting
 

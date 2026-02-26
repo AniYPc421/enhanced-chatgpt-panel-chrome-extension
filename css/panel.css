@@ -12,8 +12,7 @@ html {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #000000;
-  color: #333;
+  color: #5d5d5d;
 }
 
 #iframe {
@@ -30,7 +29,10 @@ html {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #d4d9e3, #eef1f5);
+}
+
+a, a:hover, a:focus {
+  color: #5d5d5d;
 }
 
 #iframe {
