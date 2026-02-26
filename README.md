@@ -1,5 +1,5 @@
 
-# ChatGPT Panel Chrome Extension
+# Enhanced ChatGPT Panel Chrome Extension
 
 ## Overview
 

@@ -11,6 +11,8 @@
     return typeof value === 'string' && value ? value : fallbackText;
   };
 
+  const settingsApi = self.__chatgptPanelSettings;
+
   const CONTEXT_MENU_ID = 'quote-text';
   const CONTEXT_MENU_TITLE = getI18nText('quoteText.contextMenuTitle');
   const { FEATURE_EVENT_TYPES, dispatchFeatureEvent, openSidePanelForWindow } = self.extensionFeatureBus;
@@ -35,6 +37,37 @@
     });
   };
 
+  const removeContextMenu = () => {
+    chrome.contextMenus.remove(CONTEXT_MENU_ID, () => {
+      void chrome.runtime.lastError;
+    });
+  };
+
+  const applyContextMenuSetting = (settings) => {
+    const enabled =
+      typeof settings?.enableQuoteTextContextMenu === 'boolean' ? settings.enableQuoteTextContextMenu : true;
+
+    if (enabled) {
+      ensureContextMenu();
+    } else {
+      removeContextMenu();
+    }
+  };
+
+  const syncContextMenuFromStorage = async () => {
+    if (!settingsApi || typeof settingsApi.getSettings !== 'function') {
+      ensureContextMenu();
+      return;
+    }
+
+    try {
+      const settings = await settingsApi.getSettings();
+      applyContextMenuSetting(settings);
+    } catch (_error) {
+      applyContextMenuSetting(settingsApi.DEFAULT_SETTINGS);
+    }
+  };
+
   const normalizeSelectionText = (text) => {
     if (typeof text !== 'string') {
       return '';
@@ -43,11 +76,11 @@
   };
 
   chrome.runtime.onInstalled.addListener(() => {
-    ensureContextMenu();
+    void syncContextMenuFromStorage();
   });
 
   chrome.runtime.onStartup.addListener(() => {
-    ensureContextMenu();
+    void syncContextMenuFromStorage();
   });
 
   chrome.contextMenus.onClicked.addListener((info, tab) => {
@@ -72,5 +105,11 @@
     });
   });
 
-  ensureContextMenu();
+  if (settingsApi && typeof settingsApi.onChanged === 'function') {
+    settingsApi.onChanged((settings) => {
+      applyContextMenuSetting(settings);
+    });
+  }
+
+  void syncContextMenuFromStorage();
 })();

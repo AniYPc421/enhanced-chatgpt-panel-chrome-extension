@@ -11,6 +11,8 @@
     return typeof value === 'string' && value ? value : fallbackText;
   };
 
+  const settingsApi = window.__chatgptPanelSettings;
+
   const REQUEST_EVENT = 'chatgpt-panel:page-snapshot:request-from-page-button';
   const RESULT_EVENT = 'chatgpt-panel:page-snapshot:result-to-page-button';
   const BUTTON_ID = 'chatgpt-panel-page-snapshot-button';
@@ -145,11 +147,26 @@
     return;
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeSnapshotButton, {
-      once: true
-    });
-  } else {
-    initializeSnapshotButton();
-  }
+  const initializeIfEnabled = async () => {
+    if (settingsApi && typeof settingsApi.getSettings === 'function') {
+      try {
+        const settings = await settingsApi.getSettings();
+        if (!settings.enablePageSnapshotPageButton) {
+          return;
+        }
+      } catch (_error) {
+        // Fall through to default behavior.
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeSnapshotButton, {
+        once: true
+      });
+    } else {
+      initializeSnapshotButton();
+    }
+  };
+
+  void initializeIfEnabled();
 })();

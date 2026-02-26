@@ -7,7 +7,8 @@
     "sidePanel",
     "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess",
-    "contextMenus"
+    "contextMenus",
+    "storage"
   ],
   "background": {
     "service_worker": "js/background.js"
@@ -23,6 +24,10 @@
   "action": {
     "default_title": "ChatGPT Panel Chrome Extension"
   },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
   "host_permissions": [
     "https://chatgpt.com/*",
     "https://*/*",
@@ -37,6 +42,7 @@
         "js/data/i18n/en/strings.js",
         "js/data/i18n/zh-cn/strings.js",
         "js/data/i18n/runtime.js",
+        "js/settings.js",
         "js/content.js",
         "js/chatgpt-bridge/context.js",
         "js/chatgpt-bridge/capabilities.js",
@@ -63,6 +69,7 @@
         "js/data/i18n/en/strings.js",
         "js/data/i18n/zh-cn/strings.js",
         "js/data/i18n/runtime.js",
+        "js/settings.js",
         "js/page-snapshot/page-context-button-injector.js",
         "js/page-snapshot/page-context.js"
       ],

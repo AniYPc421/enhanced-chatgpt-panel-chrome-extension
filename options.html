@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced ChatGPT Panel - Options</title>
+    <link rel="stylesheet" href="css/options.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1 id="options-title">Options</h1>
+
+      <section class="section">
+        <h2 id="options-injection-title" class="section-title">Button Injection</h2>
+
+        <label class="option">
+          <input id="enablePageSnapshotPageButton" type="checkbox" />
+          <span id="enablePageSnapshotPageButtonLabel" class="option-label">Inject snapshot button on non-ChatGPT pages</span>
+        </label>
+
+        <label class="option">
+          <input id="enablePageSnapshotPanelButton" type="checkbox" />
+          <span id="enablePageSnapshotPanelButtonLabel" class="option-label">Inject snapshot button in ChatGPT side panel</span>
+        </label>
+      </section>
+
+      <section class="section">
+        <h2 id="options-contextmenu-title" class="section-title">Context Menu</h2>
+
+        <label class="option">
+          <input id="enablePageSnapshotContextMenu" type="checkbox" />
+          <span id="enablePageSnapshotContextMenuLabel" class="option-label">Show “Upload Page Snapshot” menu</span>
+        </label>
+
+        <label class="option">
+          <input id="enableQuoteTextContextMenu" type="checkbox" />
+          <span id="enableQuoteTextContextMenuLabel" class="option-label">Show “Quote Text” menu</span>
+        </label>
+
+        <p id="options-reload-hint" class="hint">Some changes require reloading existing tabs.</p>
+      </section>
+
+      <p id="options-status" class="status"></p>
+    </main>
+
+    <script src="js/data/i18n/en/strings.js"></script>
+    <script src="js/data/i18n/zh-cn/strings.js"></script>
+    <script src="js/data/i18n/runtime.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/options.js"></script>
+  </body>
+</html>
+
