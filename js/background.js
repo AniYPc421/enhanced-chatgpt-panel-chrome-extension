@@ -1,4 +1,4 @@
-importScripts('data/i18n/en/strings.js', 'data/i18n/zh-cn/strings.js', 'data/i18n/runtime.js', 'settings.js');
+importScripts('data/i18n/en/strings.js', 'data/i18n/zh-cn/strings.js', 'data/i18n/runtime.js', 'storage/storage.js');
 
 const FEATURE_EVENT_TYPES = Object.freeze({
   PAGE_SNAPSHOT_TRIGGER: 'PAGE_SNAPSHOT_TRIGGER',

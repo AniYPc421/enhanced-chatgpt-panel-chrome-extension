@@ -42,7 +42,7 @@
         "js/data/i18n/en/strings.js",
         "js/data/i18n/zh-cn/strings.js",
         "js/data/i18n/runtime.js",
-        "js/settings.js",
+        "js/storage/storage.js",
         "js/content.js",
         "js/chatgpt-bridge/context.js",
         "js/chatgpt-bridge/capabilities.js",
@@ -69,7 +69,7 @@
         "js/data/i18n/en/strings.js",
         "js/data/i18n/zh-cn/strings.js",
         "js/data/i18n/runtime.js",
-        "js/settings.js",
+        "js/storage/storage.js",
         "js/page-snapshot/page-context-button-injector.js",
         "js/page-snapshot/page-context.js"
       ],
